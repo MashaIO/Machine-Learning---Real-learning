@@ -28,11 +28,13 @@
 #  a * b = [5*1, 3*2, 2*3 ] = Sum = 17
 #          [3*1, 3*2, 3*2 ] = Sum = 22
 # Final matrix  - [17 ,22, **]
-# Step 1: FITERS:
+# Step 1: FILTERS:
 # Filters the unwanted pixels and forms smaller matrix and gives the features
-# Step 2: Relu Layer
+
+# Step 2: RELU Layer
 # Skip the negative values. 
 # Gives multiple features and muliple relu layers
+
 # Step 3: Pooling(Edges)
 # Down sampling and will give smaller dimensions
 
@@ -46,15 +48,19 @@
 # Arriving the max value 
 # 6 8
 # 4 7
+
 # Finally Getting the 2 dimensional 
-# Step 4  Flattening 
+
+# Step 4  Flattening - Gives the ouput as Vector
 # 6
 # 8
 # 4 
 # 7
 
 # Step 5 Fully connected layer
-# Here the image classification happens
+# Here the image classification happens (Signmoid or softmax)
+
+# Lets work Cifar 10 data set.
 
 # Lets code
 #%%
@@ -106,8 +112,22 @@ x_test /= 255.0
 
 #%%
 model = Sequential()
+
+#  padding='same' - Drop the part of the image where the filter did not fit. 
+#  This is called valid padding which keeps only valid part of the image.
 model.add(Conv2D(32, (3, 3), padding='same', input_shape=x_train.shape[1:]))
+
+# ReLU’s purpose is to introduce non-linearity in our ConvNet. Since, the real world data would want our ConvNet to learn would be non-negative linear values.
+# ƒ(x) = max(0,x).
+# relu or tanh or sigmoid can be used.
 model.add(Activation('relu'))
+
+# Pooling layers section would reduce the number of parameters when the images are too large.
+# Spatial pooling also called subsampling or downsampling which reduces the dimensionality of each map but retains the important information. Spatial pooling can be of different types:
+
+# Max Pooling
+# Average Pooling
+# Sum Pooling
 model.add(MaxPooling2D(pool_size=(2, 2)))
 # Entropy 
 model.add(Dropout(0.3))
@@ -127,6 +147,8 @@ model.add(Dense(80))
 model.add(Activation('relu'))
 model.add(Dropout(0.3))
 model.add(Dense(num_classes))
+
+# Can be sigmoid or Softmax IMAGE CLASSIFICATION
 model.add(Activation('softmax'))
 
 #SHopastic Gradi
@@ -156,11 +178,14 @@ print('Test loss:', scores[0])
 print('Test accuracy:', scores[1])
 
 #%%
+# Lets test our model.
 model = load_model('model/keras_cifar10_model.h5')
 model
 
+
 (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
+# Visualize the image.
 for i in range(0, 9):
     pyplot.subplot(330 + 1 + i)
     print(y_train[i])
@@ -184,7 +209,7 @@ pyplot.show()
 for i in range(10, 19):
      print(y_train[i])
 
-# Simply function to get the class name
+# Simply function to get the class name 
 def load_label_names(predictedLableValue):
     dictionary = {'airplane':0, 'automobile':1, 'bird':2, 'cat':3, 'deer':4, 'dog':5, 'frog':6, 'horse':7, 'ship':8, 'truck':9}
     for classname, labelvalue in dictionary.items():
@@ -244,79 +269,3 @@ img_small = cv2.resize(img_small,(32,32))
 img_small = np.reshape(img_small,[1,32,32,3])
 classes = model.predict_classes(img_small)
 load_label_names(classes)
-
-
-# In[72]:
-
-
-model
-
-
-# In[73]:
-
-
-img = cv2.imread('images/cat32by32.png')
-
-plt.imshow(img)
-plt.show()
-img.shape
-
-
-# In[74]:
-
-
-img_newcopy = cv2.imread('images/cat32by32.png')
-img_small = cv2.resize(img_newcopy,(32,32))
-
-plt.imshow(img_small)
-plt.show()
-img_small.shape
-
-
-# In[75]:
-
-
-img_small = np.reshape(img_small,[1,32,32,3])
-
-
-# In[76]:
-
-
-classes = model.predict_classes(img_small)
-
-
-# In[77]:
-
-
-print(classes)
-
-
-# In[78]:
-
-
-img_small = cv2.imread('images/airplane1.png')
-img_small = cv2.resize(img_small,(32,32))
-img_small = np.reshape(img_small,[1,32,32,3])
-classes = model.predict_classes(img_small)
-print(classes)
-
-
-# In[79]:
-
-
-img_small = cv2.imread('images/airplane2.png')
-img_small = cv2.resize(img_small,(32,32))
-img_small = np.reshape(img_small,[1,32,32,3])
-classes = model.predict_classes(img_small)
-print(classes)
-
-
-# In[80]:
-
-
-img_small = cv2.imread('images/bird1.png')
-img_small = cv2.resize(img_small,(32,32))
-img_small = np.reshape(img_small,[1,32,32,3])
-classes = model.predict_classes(img_small)
-print(classes)
-
