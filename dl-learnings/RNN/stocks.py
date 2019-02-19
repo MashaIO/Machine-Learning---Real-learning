@@ -235,7 +235,7 @@ x_test
 # In[30]:
 
 
-regressor.save('model/google_stocks.h5')
+# regressor.save('model/google_stocks.h5')
 
 
 # In[31]:
