@@ -77,7 +77,7 @@ import os
 # Step 0: Get the Data
 #%%
 # Put file path as a string here
-CIFAR_DIR = 'C:/F-Folder/Machine-Learning---Real-learning/data/cifar-10-batches-py/'
+CIFAR_DIR = 'C:/Tulip/Machine-Learning---Real-learning/data/cifar-10-batches-py/'
 
 #%% [markdown]
 # The archive contains the files data_batch_1, data_batch_2, ..., data_batch_5, as well as test_batch. 
@@ -410,6 +410,8 @@ init = tf.global_variables_initializer()
 # ## Graph Session
 # 
 # ** Perform the training and test print outs in a Tf session and run your model! **
+saver = tf.train.Saver()
+
 
 #%%
 with tf.Session() as sess:
@@ -431,7 +433,9 @@ with tf.Session() as sess:
 
             print(sess.run(acc,feed_dict={x:ch.test_images,y_true:ch.test_labels,hold_prob:1.0}))
             print('\n')
-
+    
+    saver.save(sess, 'C:/Tulip/Machine-Learning---Real-learning/model/my_cifar_model')
+    saver.save(sess, 'cifar_tf_model')
 
 
 

@@ -1,0 +1,3 @@
+model_checkpoint_path: "cifar_tf_model-500"
+all_model_checkpoint_paths: "C:/Tulip/Machine-Learning---Real-learning/model/my_cifar_model"
+all_model_checkpoint_paths: "cifar_tf_model-500"
