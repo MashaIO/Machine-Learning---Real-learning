@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:/Tulip/Machine-Learning---Real-learning/model/cifar10Withpb/hi_cifar_model"
+all_model_checkpoint_paths: "C:/Tulip/Machine-Learning---Real-learning/model/cifar10Withpb/hi_cifar_model"
