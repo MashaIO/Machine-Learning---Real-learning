@@ -5,3 +5,5 @@
 /.vs/Machine-Learning---Real-learning/v16/.suo
 /.vs/VSWorkspaceState.json
 /.vs/slnx.sqlite
+/data/full_numpy_bitmap_cat.npy
+/data/cat.npy
